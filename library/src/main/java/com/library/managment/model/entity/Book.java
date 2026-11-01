@@ -1,7 +1,11 @@
 package com.library.managment.model.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity(name = "books")
 public class Book {
 
@@ -14,9 +18,6 @@ public class Book {
     @JoinColumn(name = "author_id")
     private Author author;
 
-    public Book() {
-
-    }
 
     public Long getId() {
         return id;

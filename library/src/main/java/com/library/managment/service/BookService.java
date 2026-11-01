@@ -1,4 +1,4 @@
-package com.library.managment.model.service;
+package com.library.managment.service;
 
 import com.library.managment.model.entity.Author;
 import com.library.managment.model.entity.Book;

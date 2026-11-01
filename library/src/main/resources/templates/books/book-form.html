@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Form</title>
+</head>
+<body>
+<nav>
+    <h2>My Library</h2>
+    <div>
+        <a th:href="@{/books}">Back to Books</a>
+        <a th:href="@{/authors}">Add Book</a>
+    </div>
+</nav>
+
+<div>
+    <h1 th:text="${editMode} ? 'Edit Book' : 'Add Book'"></h1>
+
+    <form th:object="${bookRequest}"
+          th:action="${editMode} ? @{/library/books/{id}/edit(id=${bookId})} : @{/library/books/add}"
+          method="post">
+
+        <label>Title</label>
+        <input type="text" th:field="*{title}" placeholder="enter title.." required>
+        <small th:errors="*{title}" class="error"></small>
+
+        <label>Genre</label>
+        <input type="text" th:field="*{genre}" placeholder="enter genre.." required>
+        <small th:errors="*{genre}" class="error"></small>
+
+        <label>Price</label>
+        <input type="number" step="1" th:field="*{price}" placeholder="enter price.." required>
+        <small th:errors="*{price}" class="error"></small>
+
+        <label>Author</label>
+        <select th:field="*{authorId}">
+            <option>Select Author</option>
+            <option th:each="author : ${authors}"
+                    th:value="${author.id}"
+                    th:text="${author.fullname}">
+            </option>
+        </select>
+        <small th:errors="*{authorId}" class="error"></small>
+
+        <div>
+            <button type="submit" th:text="${editMode} ? 'Update Book' : 'Save Book'"></button>
+        </div>
+        <a th:href="@{/library/books}">Cancel</a>
+    </form>
+</div>
+</body>
+</html>

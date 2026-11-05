@@ -20,14 +20,13 @@ public class BookViewController {
     private final AuthorService authorService;
 
 
-
     @GetMapping("/books")
     public String books(Model model) {
         model.addAttribute("books", bookService.getAll());
         return "books";
     }
 
-    @GetMapping("/books/add")
+    @GetMapping("/book/add")
     public String addBookPage(Model model) {
 
         model.addAttribute("bookRequest", new BookRequest());
@@ -86,7 +85,14 @@ public class BookViewController {
             return "book-form";
         }
 
-        bookService.update(id_request);
+        bookService.update(id, request);
+        return "redirect:/library/books";
+    }
+
+    @PostMapping("/books/{id}/delete")
+    public String deleteBook(@PathVariable Long id) {
+        bookService.delete(id);
+
         return "redirect:/library/books";
     }
 }

@@ -1,5 +1,6 @@
 package com.library.managment.service;
 
+import com.library.managment.model.dto.author.AuthorResponse;
 import com.library.managment.model.entity.Author;
 import com.library.managment.model.repository.AuthorRepository;
 import com.library.managment.restapi.exception.NotFoundException;
@@ -37,6 +38,7 @@ public class AuthorService {
 
         author.setFullname(newAuthor.getFullname());
         author.setCountry(newAuthor.getCountry());
+        author.setStyle(newAuthor.getStyle());
 
         return authorRepository.save(author);
     }
@@ -45,5 +47,14 @@ public class AuthorService {
         Author author = authorRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Author is not found:" + id));
         authorRepository.delete(author);
+    }
+
+    private AuthorResponse convertToResponse(Author author) {
+        return new AuthorResponse(
+                author.getId(),
+                author.getFullname(),
+                author.getCountry(),
+                author.getStyle()
+        );
     }
 }

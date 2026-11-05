@@ -1,0 +1,17 @@
+package com.library.managment.model.dto.author;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+public class AuthorResponse {
+    private Long id;
+    private String fullname;
+    private String country;
+    private String style;
+}

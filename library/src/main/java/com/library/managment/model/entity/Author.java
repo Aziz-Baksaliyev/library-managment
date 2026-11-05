@@ -12,6 +12,7 @@ public class Author {
     private Long id;
     private String fullname;
     private String country;
+    private String style;
 
 
     public Author() {
@@ -45,6 +46,14 @@ public class Author {
     }
 
     public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getStyle() {
+        return style;
+    }
+
+    public void setStyle(String style) {
         this.country = country;
     }
 }

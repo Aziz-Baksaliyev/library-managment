@@ -1,11 +1,13 @@
 package com.library.managment.service;
 
+import com.library.managment.model.dto.book.BookRequest;
 import com.library.managment.model.entity.Author;
 import com.library.managment.model.entity.Book;
 import com.library.managment.model.repository.AuthorRepository;
 import com.library.managment.model.repository.BookRepository;
 import com.library.managment.restapi.exception.AuthorIsRequiredException;
 import com.library.managment.restapi.exception.NotFoundException;
+import org.hibernate.query.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,7 +34,7 @@ public class BookService {
         return book;
     }
 
-    public Book create(Book book) {
+    public Book create(BookRequest book) {
 
         if (book.getAuthor() == null || book.getAuthor().getId() == null) {
             throw new AuthorIsRequiredException("Author is required!");
@@ -46,7 +48,7 @@ public class BookService {
 
         return bookRepository.save(book);
     }
-    public Book update (Long id, Book newBook) {
+    public Book update (Long id, BookRequest newBook) {
         Book book = bookRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Book is not found:" + id));
         book.setTitle(newBook.getTitle());
@@ -70,4 +72,23 @@ public class BookService {
         bookRepository.delete(book);
     }
 
+    public Page getAllPaginated(int page, int size, String sortBy, String direction) {
+
+    }
+
+    public List<Book> getByTitle(String title) {
+
+    }
+
+    public List<Book> getByGenre(String genre) {
+
+    }
+
+    public List<Book> getByMinPrice(Double price) {
+
+    }
+
+    public List<Book> getByMaxPrice(Double price) {
+
+    }
 }

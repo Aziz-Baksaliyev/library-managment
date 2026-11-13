@@ -1,8 +1,11 @@
 package com.library.managment.controller;
 
+import com.library.managment.model.dto.author.AuthorRequest;
+import com.library.managment.model.dto.author.AuthorResponse;
 import com.library.managment.model.entity.Author;
 import com.library.managment.service.AuthorService;
 
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,28 +19,36 @@ public class AuthorController {
         this.authorService = authorService;
     }
 
-    @GetMapping("/authors")
-    public List<Author> getAllAuthors() {
+    @GetMapping("/")
+    public List<AuthorResponse> getAllAuthors() {
         return authorService.getAll();
     }
 
-    @GetMapping("/authors/{id}")
+    @GetMapping("/paginated")
+    public Page<AuthorResponse> getAllPaginated(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size
+    ) {
+        return authorService.getAllPaginated(page, size);
+    }
+
+    @GetMapping("/{id}")
     public Author getAuthorById(@PathVariable Long id) {
         return authorService.getById(id);
     }
-    @PostMapping("/authors/create")
-    public Author createAuthor(@RequestBody Author author) {
-        return authorService.create(author);
+
+    @PostMapping("/")
+    public AuthorResponse creatAuthor(@RequestBody AuthorRequest authorRequest) {
+        return authorService.create(authorRequest);
     }
 
-    @PutMapping("/authors/update/{id}")
-    public Author updateAuthor(@PathVariable Long id, @RequestBody Author author) {
-        return authorService.update(id, author);
+    @PutMapping("/update/{id}")
+    public AuthorResponse updateAuthor(@PathVariable Long id, @RequestBody AuthorRequest request) {
+        return authorService.update(id, request);
     }
 
-    @DeleteMapping("/authors/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public void deleteAuthor(@PathVariable Long id) {
         authorService.delete(id);
     }
-
 }

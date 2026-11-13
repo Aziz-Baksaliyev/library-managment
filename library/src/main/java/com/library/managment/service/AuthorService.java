@@ -1,9 +1,11 @@
 package com.library.managment.service;
 
+import com.library.managment.model.dto.author.AuthorRequest;
 import com.library.managment.model.dto.author.AuthorResponse;
 import com.library.managment.model.entity.Author;
 import com.library.managment.model.repository.AuthorRepository;
 import com.library.managment.restapi.exception.NotFoundException;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,7 +19,7 @@ public class AuthorService {
         this.authorRepository = authorRepository;
     }
 
-    public List<Author> getAll() {
+    public List<AuthorResponse> getAll() {
         return authorRepository.findAll();
     }
 
@@ -28,11 +30,11 @@ public class AuthorService {
         return author;
     }
 
-    public Author create(Author author) {
+    public Author create(AuthorRequest author) {
         return authorRepository.save(author);
     }
 
-    public Author update(Long id, Author newAuthor) {
+    public Author update(Long id, AuthorRequest newAuthor) {
         Author author = authorRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Author is not found:" + id));
 
@@ -56,5 +58,9 @@ public class AuthorService {
                 author.getCountry(),
                 author.getStyle()
         );
+    }
+
+    public Page<AuthorResponse> getAllPaginated(int page, int size) {
+        return null;
     }
 }

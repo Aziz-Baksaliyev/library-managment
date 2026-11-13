@@ -57,7 +57,7 @@ public class BookViewController {
     public String editBookPage(@PathVariable Long id, Model model) {
         Book book = bookService.getById(id);
 
-        bookRequest request = new BookRequest();
+        BookRequest request = new BookRequest();
         request.setTitle(book.getTitle());
         request.setGenre(book.getGenre());
         request.setPrice(book.getPrice());

@@ -50,4 +50,8 @@ public class Book {
     public void setAuthor(Author author) {
         this.author = author;
     }
+
+    public Object getGenre() {
+        return null;
+    }
 }
